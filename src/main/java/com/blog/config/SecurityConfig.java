@@ -65,6 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .and()
             .authorizeRequests()
             .antMatchers(
+                "/health",
                 "/api/login",
                 "/api/blogs",
                 "/api/blog/**",
