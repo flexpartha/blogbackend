@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 "/health",
                 "/api/login",
                 "/api/signup",
+                "/api/auth/google",
                 "/api/blogs",
                 "/api/blog/**",
                 "/api/featured_blogs",
