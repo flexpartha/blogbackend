@@ -7,12 +7,17 @@ import com.blog.entity.User;
 import com.blog.repository.BlogRepository;
 import com.blog.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Base64;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class BlogService {
@@ -47,6 +52,14 @@ public class BlogService {
 
     public List<Blog> getAllBlogsAdmin() {
         return blogRepository.findAll();
+    }
+
+    public Page<Blog> getAdminBlogsPage(int page) {
+        PageRequest pageRequest = PageRequest.of(page, 5, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Blog> result = blogRepository.findAll(pageRequest);
+        log.info("[AdminBlogs] page={}, totalPages={}, totalElements={}, returned={}",
+                page, result.getTotalPages(), result.getTotalElements(), result.getNumberOfElements());
+        return result;
     }
 
     public Blog createBlog(BlogRequest request) {

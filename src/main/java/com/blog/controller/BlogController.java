@@ -6,6 +6,7 @@ import com.blog.dto.BlogResponse;
 import com.blog.entity.Blog;
 import com.blog.service.BlogService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,8 +45,8 @@ public class BlogController {
     // ── Admin Endpoints (JWT Protected) ───────────────────────────────────────
 
     @GetMapping("/adminBlogs")
-    public ResponseEntity<List<Blog>> getAdminBlogs() {
-        return ResponseEntity.ok(blogService.getAllBlogsAdmin());
+    public ResponseEntity<Page<Blog>> getAdminBlogs(@RequestParam(defaultValue = "0") int page) {
+        return ResponseEntity.ok(blogService.getAdminBlogsPage(page));
     }
 
     @GetMapping("/adminBlog/{id}")
